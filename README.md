@@ -2,6 +2,7 @@
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![license][license-image]][license-url]
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/github/jguyet/jiji-http-client.svg?logo=lgtm&logoWidth=18)]
 
 Tiny ajax http client in javascript.
 Optimised for jiji-js framework.
