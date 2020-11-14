@@ -1,0 +1,28 @@
+{
+  "private": false,
+  "name": "jiji-http-client",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jguyet/jiji-http-client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jguyet/jiji-http-client.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jguyet/jiji-http-client/issues"
+  },
+  "author": "Guyet Jeremy <jguyet@linepicplus.com> (https://github.io/jguyet)",
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {},
+  "description": "Tiny ajax helper in javascript. Optimised for jiji-js framework.",
+  "main": "jiji-http-client.js",
+  "directories": {},
+  "keywords": [
+    "http",
+    "https",
+    "http-client",
+    "client http",
+    "jiji-js"
+  ]
+}
