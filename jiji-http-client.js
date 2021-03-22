@@ -49,10 +49,10 @@ var HttpClient = {
     },
     private_onreadystatechange: {
         response: (callbacks) => {
-            return function() { // force function for insert this
-                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            return function() { // XMLHttpRequest.readyState 4 DONE
+                if (this.readyState === 4 && this.status === 200) {
                     callbacks[0](this.response);
-                } else if (this.readyState === XMLHttpRequest.DONE) {
+                } else if (this.readyState === 4) {
                     callbacks[1](this);
                 }
             };
