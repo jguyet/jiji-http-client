@@ -1,7 +1,7 @@
 /**
  *  Jiji Framework HttpClient 2021
  *  Author : Jeremy Guyet
- *  Version : 0.0.3
+ *  Version : 0.0.4
  */
 var HttpClient = {
     get: (query, callbacks) => HttpClient.query({
