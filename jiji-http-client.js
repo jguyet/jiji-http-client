@@ -110,6 +110,16 @@ var HttpClient = {
         json: (callbacks) => {
             return HttpClient.private_onreadystatechange["response"]([(resp) => { callbacks[0](JSON.parse(resp))}, callbacks[1]]);
         }
+    },
+    utils: {
+        urlEncodeFormData: (fd) => {
+            var s = '';
+            function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+            fd.forEach((value,key) => {
+                s += (s?'&':'') + encode(key)+'='+encode(value);
+            });
+            return s;
+        }
     }
 };
 
