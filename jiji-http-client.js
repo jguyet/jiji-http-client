@@ -1,7 +1,7 @@
 /**
- *  Jiji Framework HttpClient 2020
+ *  Jiji Framework HttpClient 2021
  *  Author : Jeremy Guyet
- *  Version : 0.0.1
+ *  Version : 0.0.3
  */
 var HttpClient = {
     get: (query, callbacks) => HttpClient.query({
@@ -46,6 +46,53 @@ var HttpClient = {
         Object.keys(query.headers).forEach(key => xhr.setRequestHeader(key, query.headers[key]));// Headers
         xhr.onreadystatechange = HttpClient.private_onreadystatechange[query.bodyParser](callbacks);
         xhr.send(query.body);
+    },
+    upload: (query, callbacks) => HttpClient.queryUpload({
+        url: null,
+        headers: {},
+        file: null,
+        formData: null,
+        progress: () => {},
+        bodyParser: 'json'
+    }, query, callbacks),
+    queryUpload: (defaultQuery, query, callbacks = [() /** Sucess */ => {}, () /** Failure */ => {}]) => {
+        Object.keys(defaultQuery).forEach(x => { if (query[x] == undefined) query[x] = defaultQuery[x]; });
+        var xhr = new XMLHttpRequest();
+        
+        function progressHandler(event) {
+            var percent = (event.loaded / event.total) * 100;
+            query.progress(percent);
+        }
+
+        function errorHandler(event) {
+            callbacks[1](xhr.response, event);
+        }
+
+        function abortHandler(event) {
+            callbacks[1]({}, event);
+        }
+
+        function completeHandler(event) {
+            if (xhr.status != 200) {
+                errorHandler(event);
+                return ;
+            }
+            callbacks[0](xhr.response, event);
+        }
+
+        xhr.upload.addEventListener("progress", progressHandler, false);
+        xhr.addEventListener("load", completeHandler, false);
+        xhr.addEventListener("error", errorHandler, false);
+        xhr.addEventListener("abort", abortHandler, false);
+        xhr.open("POST", query.url);
+        Object.keys(query.headers).forEach(key => xhr.setRequestHeader(key, query.headers[key]));// Headers
+
+        if (query.formData != null) {
+            xhr.send(query.formData);
+        } else {
+            xhr.setRequestHeader("size", query.file.size);
+            xhr.send(query.file);
+        }
     },
     private_onreadystatechange: {
         response: (callbacks) => {
