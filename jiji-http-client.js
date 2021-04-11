@@ -97,7 +97,7 @@ var HttpClient = {
     private_onreadystatechange: {
         response: (callbacks) => {
             return function() { // XMLHttpRequest.readyState 4 DONE
-                if (this.readyState === 4 && this.status === 200) {
+                if (this.readyState === 4 && this.status >= 200 && this.status <= 299) {
                     callbacks[0](this.response);
                 } else if (this.readyState === 4) {
                     callbacks[1](this);
